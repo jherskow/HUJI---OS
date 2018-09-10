@@ -1,0 +1,98 @@
+jherskow, netanelf
+Joshua Herskowitz (321658379), Netanel Fayoumi (201209806)
+EX: 2
+
+FILES:
+
+thread.h        -- Interface for class Thread.
+thread.cpp      -- Class Thread - holds resources for a user thread.
+uthreads.cpp    -- Implementation of user-thread library.
+
+
+Makefile        -- An awesome makefile.
+README          -- This Pulitzer-worthy file.
+
+REMARKS:
+
+We decided to use 2 data structures for storing the thread pointers.
+
+o   An array of pointers, of size MAX_THREAD_NUM.
+
+    This enables O(1) access to the threads by tid, and allows us to prevent any memory leaks.
+
+o   A priority queue for the list of ready threads.
+
+    We chose the priority queue structure after noticing that a blocked list is unnecessary:
+    Threads move to ready either by a direct call to resume(), or by their sync 'master's'
+    termination. In one case no pointer is needed, and in the other the information can be stored
+    within the master thread.
+
+For the management of thread ID's (tid), we used a Minimum Heap,
+enabling fast retrieval and management of the smallest available tid number.
+ANSWERS:
+
+Q1:
+A Video Game running from a CD would be a good example.
+The game has many operations at once (player movement, enemy AI, etc).
+During the play, the game decides to load a new part of the map, saved on the CD.
+This operation requires blocking while the CD drive spools up.
+
+As a solution, the game might implement CD-loading as a separate user-level thread.
+
+If the game is running as a single process, the entire game will have to wait until
+the CD drive becomes available - most likely losing several processing cycles.
+
+User-level threads allow the game to execute the other, non-map, operations.
+This allows the game to continue running smoothly,instead of surrendering
+valuable CPU time to other programs on the computer.
+
+Q2:
+Advantages:
+
+More secured browsing: It will be impossible that one site running on tab 1 will try to access
+    and "steal" other site data which running on tab2, since each one of them has its own memory
+    space separated from the another one. Implementing with kernel-level threads would cause that
+    there is some shared memory so malicious site can effect the browser behavior.
+
+Stabilized environment: In case of one tab is accessing a malicious site which is trying overload
+    our system and crash it by consuming the entire RAM memory - it will be blocked by the same
+    reason of separated memory spaced. Plus if one site is misbehaving correctly and gets
+    unresponsive we can kill it without kill the entire browser and ruin the user experience.
+    Implementing with kernel-level threads will allow this malicious behavior.
+
+Multi-core utilization: when each tab has it's own process, the OS take advantage of multi-cores CPU
+    and run the tabs more fluently.
+
+Disadvantages:
+
+Consuming larger system memory: when we create each tab as a process we would consume much more
+    memory resources of our system.
+
+
+
+Q3:
+Typing on the keyboard creates interrupts for each keystroke,
+allowing the program (in this case the shell) to react appropriately -
+type words into the shell, or to run the typed line via Enter.
+
+The kill command calls kill() - a system call which uses an
+interrupt from the OS to send a signal to the program.
+
+The default signal sent in this is SIGTERM - applications
+should handle a SIGTERM signal by ending their execution.
+SIGTERM can be handled by the application so that they can
+run essential cleanup, such as saving information into a file.
+
+You can also send a SIGKILL - this cannot be handled,
+and therefore ends the process immediately.
+
+Q4:
+'Real' time refers to the total number of elapsed clocked cycle.
+For example, we would use 'real' time to measure how quickly
+different android devices can perform a JPEG resize during
+normal use. (Other processes are running, etc).
+
+"Virtual' time refers to the number of elapse cycles within
+a specific process. If we wanted to compare different programs
+that resize a JPEG in different ways, we would measure virtual
+time on both programs, but on the same device.

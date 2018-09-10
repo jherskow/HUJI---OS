@@ -1,0 +1,66 @@
+thread library error: it's illegal to put the main thread to sleep
+m  q:  1
+thread library error: it's illegal to put the main thread to sleep
+m  q:  2
+thread library error: it's illegal to put the main thread to sleep
+m  q:  3
+          spawn f at (1) 1
+          spawn g at (2) 2
+f  q:  1
+g  q:  1
+thread library error: it's illegal to put the main thread to sleep
+m  q:  4
+f  q:  2
+g  q:  2
+thread library error: it's illegal to put the main thread to sleep
+m  q:  5
+f  q:  3
+g  q:  3
+thread library error: it's illegal to put the main thread to sleep
+m  q:  6
+thread library error: it's illegal to put the main thread to sleep
+m  q:  7
+thread library error: it's illegal to put the main thread to sleep
+m  q:  8
+thread library error: it's illegal to put the main thread to sleep
+m  q:  9
+f  q:  4
+thread library error: it's illegal to put the main thread to sleep
+m  q:  10
+g  q:  4
+f  q:  5
+thread library error: it's illegal to put the main thread to sleep
+m  q:  11
+g  q:  5
+f  q:  6
+thread library error: it's illegal to put the main thread to sleep
+m  q:  12
+g  q:  6
+f  q:  7
+thread library error: it's illegal to put the main thread to sleep
+m  q:  13
+g  q:  7
+f  q:  8
+          **f end**
+thread library error: it's illegal to put the main thread to sleep
+m  q:  14
+g  q:  8
+thread library error: it's illegal to put the main thread to sleep
+m  q:  15
+g  q:  9
+thread library error: it's illegal to put the main thread to sleep
+m  q:  16
+g  q:  10
+thread library error: it's illegal to put the main thread to sleep
+m  q:  17
+g  q:  11
+          **g end**
+thread library error: it's illegal to put the main thread to sleep
+m  q:  18
+thread library error: it's illegal to put the main thread to sleep
+m  q:  19
+thread library error: it's illegal to put the main thread to sleep
+m  q:  20
+          ******end******
+total quantums:  39
+

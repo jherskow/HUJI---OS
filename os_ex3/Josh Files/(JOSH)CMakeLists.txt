@@ -1,0 +1,22 @@
+cmake_minimum_required (VERSION 2.6)
+set (CMAKE_CXX_STANDARD 11)
+
+SET(GCC_COVERAGE_COMPILE_FLAGS "-Wall")
+SET( CMAKE_CXX_FLAGS  ${GCC_COVERAGE_COMPILE_FLAGS})
+
+add_executable (big_client test_clients/bigClient.cpp
+        MapReduceFramework.h MapReduceFramework.cpp MapReduceClient.h Barrier.cpp Barrier.h)
+
+add_executable (little_client test_clients/littleClient.cpp
+        MapReduceFramework.h MapReduceFramework.cpp MapReduceClient.h Barrier.cpp Barrier.h)
+
+add_executable (euro_client test_clients/eurovisionClient.cpp
+        MapReduceFramework.h MapReduceFramework.cpp MapReduceClient.h Barrier.cpp Barrier.h)
+
+add_executable (sample_client SuppliedFiles/sampleclient/SampleClient.cpp
+        MapReduceFramework.h MapReduceFramework.cpp MapReduceClient.h Barrier.cpp Barrier.h)
+
+TARGET_LINK_LIBRARIES(little_client pthread)
+TARGET_LINK_LIBRARIES(big_client pthread)
+TARGET_LINK_LIBRARIES(euro_client pthread)
+TARGET_LINK_LIBRARIES(sample_client pthread)

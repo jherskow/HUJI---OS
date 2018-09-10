@@ -1,0 +1,45 @@
+jjherskow, netanelf
+Joshua Herskowitz (321658379), Netanel Fayoumi (201209806)
+
+
+=================================   OPERATING SYSTEMS  =================================
+=======================================   EX: 1  =======================================
+
+
+=================   FILES:  ======================
+
+osm.cpp     -- Library implementation for the given interface specification.
+graph.png   -- An expert-grade bar chart.
+Makefile    -- A makefile.
+README      -- This file
+
+=================   REMARKS:  ====================
+-
+
+
+================   Assignment I   ================
+
+===   What does "WhatIDo" do?   ===
+
+After the initialization, the program:
+
+1) Calls mkdir to create the directory "welcome" and "Welcome/To".
+
+2) Calls open to open the file "OS2018" within "Welcome/To", 
+creating it if it does not exist.
+
+3) Calls fstat, presumalbly to check if the file was opened correctly.
+
+4) Calls close to close this file.
+
+5) Calls unlink to remove the reference to this file, essentialy deleting it.
+
+6) Calls rmdir to remove the directorires created in (1) and (2).
+
+7) calls exit_group to terminate all threads in this process, killing the program.
+
+===================================================
+
+
+
+

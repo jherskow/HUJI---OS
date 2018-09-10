@@ -1,0 +1,23 @@
+#!/bin/bash
+
+TIMEOUT_CODE="124"
+TESTS="littleClient bigClient eurovisionClient"
+
+for i in $TESTS
+do
+	if [ ! -f $i ]; then
+    	echo "$i could not be found. Did you run compile_all?"
+    	exit 1
+    fi
+done
+
+
+for i in $TESTS
+do
+    echo "running $i"
+	timeout -k 1 10 ./$i > $i.out
+	EXIT_STATUS=$?
+	if [ "$EXIT_STATUS" -eq "$TIMEOUT_CODE" ] ; then
+		echo "ERROR - timeout reached"
+	fi
+done

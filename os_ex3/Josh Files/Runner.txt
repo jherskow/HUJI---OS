@@ -1,0 +1,3 @@
+
+
+jherskow@nak-26:~/safe/OS_Ex3/cmake-build-debug% valgrind --leak-check=yes --max-stackframe=8000176 big_client

@@ -1,0 +1,107 @@
+jherskow, netanelf
+Joshua Herskowitz (321658379), Netanel Fayoumi (201209806)
+EX: 4
+
+FILES:
+
+whatsappio.h          -- WhatsApp I/O header file.
+whatsappio.cpp        -- WhatsApp I/O code.
+whatsappServer.cpp    -- WhatsApp Server.
+whatsappClient.cpp    -- WhatsApp Client.
+
+Makefile              -- An awesome makefile.
+README                -- This Pulitzer-worthy file.
+
+REMARKS:
+
+Remarks go here.
+
+
+ANSWERS:
+
+Q1:
+
+To implement a leave_group command, we would add a control string "leave groupname"
+and enum "LEAVE" to both the client and server.
+Then the parsing and switch logic could easily be modified to call a new method:
+server.clientLeave, which would scrub the client from the corresponding data structures.
+
+Checking for emptied groups is already implemented in our current code, at the time of clientExit()
+so we would need only call this logic to ensure no groups are "orphaned" (bereaved?).
+
+
+Q2:
+            2. Why do we prefer TCP over UDP in this exercise?
+
+TCP is a carefully organized control system. All packets are tracked end-to-end to ensure that
+no information is lost. The sender will re-send any and all packets if the server cannot confirm
+receipt, and the server will likewise follow the packets to the receiver.
+
+For a texting application such as our project, TCP can probably send an average message
+many, many, times without entering a domain that would be noticeable by a human user.
+And unlike a skip during a video chat, anyone who has been in a relationship knows: missed
+texts can cost lives.
+
+Therefore, for applications where data integrity and completeness are factors, TCP is the most
+common choice.
+
+
+
+
+Q3:
+            Give two examples for applications that use UDP. Why UDP is preferred for them?
+
+Unlike TCP, UDP sends it's packets down the line, and makes no further attempt to resend.
+
+The main advantage of UDP is speed - there is less control overhead, and no time spent sending
+the same packet more than once. UDP is used for applications such as live video, or VOIP,
+where the importance of the data is extremely time sensitive, and the data itself is large enough
+that sending it in time is difficult.
+
+If a video chat user misses a package, the user's device has no choice but to freeze the image, or
+black it out, until another packet arrives. Resending the package would also cause a traffc jam,
+delaying all of the next packages waiting to go. This would cascade the amount of latency if any
+further packets were missed.
+
+Even if a missed packet of video did arrive - say maybe 10 seconds late in a live chat - there isn't
+really any useful way to present this data to the user.
+Even if there was, the user has probably already rectified the situation
+(i.e. by asking "what?" or  by using the poor quality as an opportunity to end an uncomfortable
+conversation (sorry grandma) ).
+
+
+Therefore, since there isn't much use in recovering a missed packet, UDP doesn't even try, and
+makes use of the gains in overhead to minimize the amout of packets lost.
+
+
+
+Q4:
+
+In order to build a server that can recover from a crash we must do several things::
+
+Firstly we could use sigaction to ensure that upon crashing the server can write all the existing
+information about it's structure (users, groups, Etc) to a file. We can again use sigaction to
+ensure that upon crash the server attempts to restart itself, and retrieve the information from this
+backup file.
+
+
+However,  in a crash the clients will become disconnected - read() will fail.
+
+So we can change the clients code to run in a loop:
+
+In the beginning of the loop the clients would connect to the server, and proceed in its usual flow.
+This flow would only be broken in case of a dropped connection. In this case the client will loop
+back, and attempt and create a connection with the server. This loop would until the servers back
+up again, possibly when a timeout is reached. When the client reconnects to the server with their
+username, the server will connect as usual, and , recognizing the name, will associated the user
+with all the previous information for this username.
+
+Of course this presents a problem:
+
+If another client decided to use the same name at that exact moment in time, we have a race
+condition: A new user, with same name, could acquire the previous user's (possibly quite personal)
+information. The obvious solution in this case is to require clients to connect with a password.
+Only a client reconnecting with the same username/password combo, will be able to access the
+previous resources groups that he was a part of.
+
+We'd go into more detail, but we don't wanna get sued by WhatsApp.

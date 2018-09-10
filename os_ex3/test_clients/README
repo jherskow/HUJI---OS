@@ -1,0 +1,36 @@
+
+A few new clients for MapReduceFramework:
+- littleClient:
+    input: 14 ints.
+    map: maps each int to even or odd.
+    reduce: sums all the evens and all the odds.
+- bigClient:
+    input: 500,000 randomly generated ints in the range 0-5000.
+    map: maps each int to its modulo 1000.
+    reduce: sums all the modulo groups separately.
+- eurovisionClient:
+    input: a table of (years * countries) that contains how many points each country received in the
+    eurovision each year. (The data is taken from the file points_awarded.in.)
+    Each year in the table is a separate input to mapReduce.
+    map: maps each year to the winner by taking the country with the most points.
+    reduce: counts the number of wins for each country.
+
+
+Instructions:
+- copy your libMapReduceFramework.a to the folder.
+- find the TODO in eurovisionClient.cpp and put in your path to "points_awarded.in".
+- run ./compile_all
+- run ./run_all
+- compare your .out files to the .out_master files.
+NOTE: because the output vector is not necessarily ordered (and because bigClient generates random
+input), the .out and .out_master files probably won't be identical.
+
+
+Valgrind:
+Should return 0 errors when running on littleClient and on eurovisionClient.
+bigClient kind of messes it up because it's so big.
+
+
+
+
+Written by Hadas Jacobi, 2018.

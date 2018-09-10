@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+if [ ! -f libMapReduceFramework.a ]; then
+	echo "libMapReduceFramework.a could not be found"
+	exit 1
+fi
+
+TESTS="littleClient bigClient eurovisionClient"
+
+for i in $TESTS
+do
+	echo "compiling $i"
+	g++ -std=c++11 $i.cpp -L. -lMapReduceFramework -lpthread -o $i
+done
+
+

@@ -1,0 +1,31 @@
+Testing scenarios:
+please edit this link with test results.
+
+https://docs.google.com/spreadsheets/d/1BZ1W0ACjiNFubj9nO1XTn-a88YBpVL6LfOi3DcK7S8k/edit?usp=sharing
+
+DEFINE default string to replace "deaf" (which is becuase print arent friendly with nullptr.
+//todo mishandled space in msg
+//todo make work with 127.0.0.1
+//todo make work over net - worked on two PCs with hostname
+// fix parser DONE
+//todo remove client from fdset
+//todo check if read 0 is acceptable
+//todo see why input is empty
+
+
+
+
+/// show ip
+
+ip addr show
+
+hostname -I
+
+
+/// clear port
+
+fuser 9021/tcp
+     ^port^
+
+lsof -n -i | grep ":9021"
+

@@ -1,0 +1,35 @@
+jherskow, netanelf
+Joshua Herskowitz (321658379), Netanel Fayoumi (201209806)
+EX: 3
+
+
+FILES:
+
+MapReduceFramework.cpp   -- Implementation of framework.
+Barrier.h                -- Header file for barrier class.
+Barrier.cpp              -- Barrier helper class implementation.
+Makefile                 -- An awesome makefile.
+README                   -- This Pulitzer-worthy file.
+
+
+
+REMARKS:
+
+Implementation remarks:
+
+    Thread's contexts are implemented as a struct. This struct holds pointers to shared resources,
+    as well as the threads unique ID.
+
+    Besides pointers to the input and output vector, there are a few important shared resources:
+
+    The threads share a pointer to a vector-of-vectors, where each thread can use the inner
+    IntermediateVec corresponding to it's TID.
+
+    A pointer to an atomic<int> to control access to the inputVec, as well as status flag to
+    determine if we wanna put certain thread into sem_wait.
+    A pointer to a semaphore used in the shuffle phase.
+    A pointer to a boolean everydayImShuffling, used to signal the end of the shuffling.
+    And a pointer to a Barrier-class instance.
+
+    The Barrier class holds the mutexes and lock/unlock functions to control access to these
+    shared resources.
